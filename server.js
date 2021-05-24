@@ -5,7 +5,7 @@ const router = require("./routes/api.js")
 
 const PORT = process.env.PORT || 3000;
 
-const db = require("./models");
+// const db = require("./models");
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populate", { useNewUrlParser: true });
+const db = mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populate", { useNewUrlParser: true });
 
 app.use(router);
 require('./routes/html.js')(app);
@@ -24,3 +24,5 @@ require('./routes/html.js')(app);
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
 });
+
+module.exports = db;
